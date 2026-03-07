@@ -4,8 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Issue</title>
+  <!-- font awesont -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- tailwind and daisyui -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<!-- google font -->
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
 </head>
-<body>
- 
+<body  class="bg-[#F8FAFC] max-w-[1600px]">
+ <header class="  h-[78px] bg-[#FFFFFF]">
+ <div class=" nav-container flex justify-between items-center px-[80px] py-6">
+      
+      <div class="flex items-center gap-3">
+        <img src="./assets/github-logo.png" alt="github logo" class="w-8 h-8">
+        <h2 class="text-[#1F2937] text-xl font-semibold">
+          GitHub Issues Tracker
+        </h2>
+      </div>
+<!-- search an btn -->
+ <div class="search-btn flex gap-4">
+ <label class="input">
+  <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g
+      stroke-linejoin="round"
+      stroke-linecap="round"
+      stroke-width="2.5"
+      fill="none"
+      stroke="currentColor"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </g>
+  </svg>
+  <input type="search" required placeholder="Search" />
+</label>
+<button class="w-[131px] h-[44px] btn btn-primary text-[13px] font-semibold text-[#FFFFFF] "><i class="fa-regular fa-plus"></i> New Issue</button>
+</div>
+    </div>
+    
+ </header>
+ <section class="btn-issue-card-container max-w-[1110px] mx-auto">
+    <div class="mt-4 h-[110px] ">
+<div class="three-btn flex gap-2 py-6 px-6 rounded-xl  bg-[#FFFFFF] mt-[60px]  ">
+<button class="w-[131px] h-[44px] btn btn-primary text-[13px] font-semibold text-[#FFFFFF] "> All </button>
+<button class="w-[131px] h-[44px] btn btn-primary text-[13px] font-semibold text-[#FFFFFF] "> Open</button>
+<button class="w-[131px] h-[44px] btn btn-primary text-[13px] font-semibold text-[#FFFFFF] ">Close</button>
+</div>
+</div>
+<div class="issue-container rounded-xl bg-[#FFFFFF] max-w-[1110px] mx-auto flex justify-between items-center px-6">
+<div class="issue-image-text flex py-6 px-6 gap-2">
+   <div class="bg-[#ECE4FF] rounded-full w-12 h-12 flex items-center justify-center"><img class="rounded-full w-7 h-7 " src="./assets/Aperture.png" alt=""></div> 
+    <div class="issues-text">
+<h2 class="text-[#1F2937] font-semibold">50 Issues</h2>
+<p class="text-[16px] text-[#64748B]">Track and manage your project issues</p>
+    </div>
+</div>
+<div class="open-close flex gap-4 "><div class="open flex ">
+    <p class="text-[16px] text-[#1F2937]">Open</p>
+</div>
+<div class="close flex">
+<p class="text-[16px] text-[#1F2937]">Close</p>
+</div></div>
+
+</div>
+ </section>
 </body>
 </html>
