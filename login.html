@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <!-- tailwind and daisyui -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<!-- google font -->
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
   <section class="login-page max-w-[1600px] bg-[#F8FAFC] h-[900px]">
@@ -18,13 +23,27 @@
 
 <fieldset class="fieldset w-[456px] h-[180px] border-base-100 rounded-box w-xs mx-auto border py-[24px] gap-4 ">
   
-<label class="label">Username</label>
-  <input type="text" class="input" placeholder="Username" />
+<label class="label text-[16px] text-[#1F2937]">Username</label>
+  <input type="text" class="input text-[16px] text-[#64748B]" placeholder="Username" />
 
-  <label class="label">Password</label>
-  <input type="password" class="input" placeholder="Enter Password" />
+  <label class="label text-[16px] text-[#1F2937]">Password</label>
+  <input type="password" class="input text-[16px] text-[#64748B]" placeholder="Enter Password" />
 
   <button class="btn btn-primary  "> Sign In</button>
+  <div class="flex items-center gap-3">
+  <div class="flex-1 border-t-2 border-solid border-[#E4E4E7]"></div>
+  <span class="text-[#1F2937] text-[16px]">OR</span>
+  <div class="flex-1 border-t-2  border-solid border-[#E4E4E7]"></div>
+</div>
+<div class="demo">
+  <p class="text-[16px] text-[#64748B] text-center">Demo Credentials:</p>
+  <div class=" h-[90px] bg-[#F8FAFC] py-[24px]">
+    
+<p class="text-center"><span class="font-semibold text-[16px] text-[#1F2937] ">Username:</span><span>admin</span></p>
+<p class="text-center"><span class="font-semibold text-[16px] text-[#1F2937] ">Username:</span><span>admin</span></p>
+
+  </div>
+</div>
 </fieldset>
         
     </div>
