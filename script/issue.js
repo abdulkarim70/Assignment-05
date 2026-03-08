@@ -1,64 +1,145 @@
+// store all issues
+let allIssues = [];
 
-async function loadpage() {
-    const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
-    const data= await res.json();
-    loadIssue(data.data);
+// load issues from API
+async function loadPage() {
+
+const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+const data = await res.json()
+
+allIssues = data.data
+
+loadIssue(allIssues)
+
 }
-// .................
-const loadIssue= (issues)=>{
-const cardParent=document.getElementById('card-parent')
-cardParent.innerHTML="";
-issues.forEach(issue=>{
-   const newCard=document.createElement('div')
-   newCard.innerHTML=`<div class="w-full h-full  mb-[12px] border-t-4 border-green-500 rounded-t-xl p-5 shadow-sm bg-white rounded-xl">
 
-  
-  <div class="flex justify-between items-center mb-4">
-    
-    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-green-100">
-      <img src="./assets/Open-Status.png" alt="">
-    </div>
+loadPage()
 
-    <span class="bg-red-100 text-red-500 text-xs font-semibold px-4 py-1 rounded-full">
-      ${issue.priority}
-    </span>
 
-  </div>
+// create cards
+function loadIssue(issues){
 
-  
-  <h2 class="text-[#1F2937] text-[14px] font-semibold  mb-2">
-     ${issue.title}
-  </h2>
+const cardParent = document.getElementById("card-parent")
 
-  
-  <p class="text-[#64748B] text-[12px]  text-sm mb-4">
-    ${issue.description}
-  </p>
+cardParent.innerHTML = ""
 
-  
-  <div class="flex gap-2 mb-4">
-    <span class="text-red-500 bg-red-100 text-[9px] px-3 py-1 rounded-full items-center flex gap-1">
-      <img src="./assets/BugDroid.png" alt=""> ${issue.labels[0]}
-    </span>
+issues.forEach(issue => {
 
-    <span class="text-yellow-600 bg-yellow-100 text-[9px] flex-wrap px-3 py-1 items-center flex gap-1 rounded-full">
-      <img src="./assets/Lifebuoy.png" alt=""> ${issue.labels[1]?issue.labels[1]: "" }
-    </span>
-  </div>
+const borderColor = issue.status === "open" 
+? "border-green-500" 
+: "border-purple-500"
 
-  
-  <div class="border-t-[2px] border-t-gray-200 pt-1 text-sm text-[#64748B]">
-    <p>${issue.author}</p>
-    <p>${issue.createdAt}</p>
-  </div>
+const newCard = document.createElement("div")
+
+newCard.innerHTML = `
+
+<div class="w-full h-full border-t-4 ${borderColor} rounded-t-xl p-5 shadow-sm bg-white rounded-xl">
+
+<div class="flex justify-between items-center mb-4">
+
+<div class="w-8 h-8 flex items-center justify-center rounded-full bg-green-100">
+<img src="./assets/Open-Status.png">
+</div>
+
+<span class="bg-red-100 text-red-500 text-xs font-semibold px-4 py-1 rounded-full">
+${issue.priority}
+</span>
 
 </div>
-   `
-   
-   cardParent.append(newCard)
 
+<h2 class="text-[#1F2937] text-[14px] font-semibold mb-2">
+${issue.title}
+</h2>
+
+<p class="text-[#64748B] text-[12px] mb-4">
+${issue.description}
+</p>
+
+<div class="border-t-[2px] border-t-gray-200 pt-2 text-sm text-[#64748B]">
+<p>${issue.author}</p>
+<p>${issue.createdAt}</p>
+</div>
+
+</div>
+`
+
+cardParent.append(newCard)
 
 })
 
 }
-loadpage()
+
+
+// buttons
+const btnAll = document.getElementById("btn-all")
+const btnOpen = document.getElementById("btn-open")
+const btnClose = document.getElementById("btn-close")
+
+// active btn
+document.querySelectorAll(".btn-three").forEach(btn => {
+
+    btn.addEventListener("click", function(){
+
+        document.querySelectorAll(".btn-three").forEach(b=>{
+            b.classList.remove("btn-primary")
+            
+        })
+
+        this.classList.add("btn-primary")
+        
+          
+
+    })
+
+})
+// 
+
+
+
+btnAll.addEventListener("click", () => {
+loadIssue(allIssues)
+})
+
+btnOpen.addEventListener("click", () => {
+
+const openIssues = allIssues.filter(issue => issue.status === "open")
+
+loadIssue(openIssues)
+
+})
+
+btnClose.addEventListener("click", () => {
+
+const closeIssues = allIssues.filter(issue => issue.status === "closed")
+
+loadIssue(closeIssues)
+
+})
+
+
+// search
+// const searchInput = document.getElementById("search-input")
+
+// if(searchInput){
+
+// searchInput.addEventListener("keyup", function(){
+
+// const inputValue = this.value.toLowerCase()
+
+// const filtered = allIssues.filter(issue =>
+// issue.title.toLowerCase().includes(inputValue)
+// )
+
+// loadIssue(filtered)
+
+// })
+
+// }
+// by btn
+const searchBtn=document.getElementById('search-btn')
+const searchInput=document.getElementById('search-input')
+searchBtn.addEventListener('click',function(){
+    const searchValue=searchInput.value.toLowerCase()
+    const filtered= allIssues.filter(issue=> issue.title.toLowerCase().includes(searchValue))
+    loadIssue(filtered)
+})
