@@ -1,8 +1,9 @@
-// store all issues
+
 let allIssues = [];
 
-// load issues from API
+
 async function loadPage() {
+const loader = document.getElementById("loader")
 
 const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
 const data = await res.json()
@@ -10,7 +11,7 @@ const data = await res.json()
 allIssues = data.data
 
 loadIssue(allIssues)
-
+loader.classList.add("hidden")
 }
 
 loadPage()
@@ -20,7 +21,9 @@ loadPage()
 function loadIssue(issues){
 
 const cardParent = document.getElementById("card-parent")
-
+// 
+const countUpdate = document.getElementById("count-update")
+countUpdate.innerText = issues.length + " Issues"
 cardParent.innerHTML = ""
 
 issues.forEach(issue => {
@@ -54,7 +57,27 @@ ${issue.title}
 <p class="text-[#64748B] text-[12px] mb-4">
 ${issue.description}
 </p>
+<div class="flex gap-2 mb-4">
+  
+  <span class="text-xs px-3 py-1 rounded-full flex items-center gap-1
+${issue.labels[0] === "bug" ? "text-red-500 bg-red-100" : "text-[#00A96E] bg-[#BBF7D0]"}">
 
+${issue.labels[0] === "bug" ? `
+<img class="w-4 h-4" src="./assets/BugDroid.png" alt="">
+` : ""}
+
+${issue.labels[0]}
+
+</span>
+
+
+${issue.labels[0] === "bug" ? `
+<span class="text-yellow-600 bg-yellow-100 text-[9px] px-3 py-1 rounded-full flex items-center gap-1">
+<img class="w-4 h-4" src="./assets/Lifebuoy.png" alt="">
+${issue.labels[1]?issue.labels[1]:""}
+</span>
+` : ""}
+</div>
 <div class="border-t-[2px] border-t-gray-200 pt-2 text-sm text-[#64748B]">
 <p>${issue.author}</p>
 <p>${issue.createdAt}</p>
@@ -64,11 +87,14 @@ ${issue.description}
 `
 
 cardParent.append(newCard)
+// 
+newCard.addEventListener("click", () => {
+openModal(issue)
+})
 
 })
 
 }
-
 
 // buttons
 const btnAll = document.getElementById("btn-all")
@@ -85,15 +111,11 @@ document.querySelectorAll(".btn-three").forEach(btn => {
             
         })
 
-        this.classList.add("btn-primary")
-        
-          
-
+        this.classList.add("btn-primary")         
     })
 
 })
 // 
-
 
 
 btnAll.addEventListener("click", () => {
@@ -117,25 +139,7 @@ loadIssue(closeIssues)
 })
 
 
-// search
-// const searchInput = document.getElementById("search-input")
 
-// if(searchInput){
-
-// searchInput.addEventListener("keyup", function(){
-
-// const inputValue = this.value.toLowerCase()
-
-// const filtered = allIssues.filter(issue =>
-// issue.title.toLowerCase().includes(inputValue)
-// )
-
-// loadIssue(filtered)
-
-// })
-
-// }
-// by btn
 const searchBtn=document.getElementById('search-btn')
 const searchInput=document.getElementById('search-input')
 searchBtn.addEventListener('click',function(){
@@ -143,3 +147,32 @@ searchBtn.addEventListener('click',function(){
     const filtered= allIssues.filter(issue=> issue.title.toLowerCase().includes(searchValue))
     loadIssue(filtered)
 })
+// Modal
+function openModal(issue){
+const modal = document.getElementById("modal")
+modal.classList.remove("hidden")
+modal.classList.add("flex")
+
+document.getElementById("modal-title").innerText = issue.title
+document.getElementById("modal-description").innerText = issue.description
+document.getElementById("modal-author").innerText = "Opened by " + issue.author
+document.getElementById("modal-assignee").innerText = issue.author
+
+document.getElementById("modal-priority").innerText = issue.priority
+document.getElementById("modal-priority2").innerText = issue.priority
+const createdAt=document.getElementById('creat-at').innerText=issue.createdAt
+const statusElement = document.getElementById("modal-status")
+
+statusElement.innerText = issue.status
+
+if(issue.status === "open"){
+statusElement.className = "bg-green-100 text-green-700 px-3 py-1 rounded-full"
+}else{
+statusElement.className = "bg-purple-100 text-purple-700 px-3 py-1 rounded-full"
+}
+
+}
+function closeModal(){
+modal.classList.add("hidden")
+modal.classList.remove("flex")
+}
